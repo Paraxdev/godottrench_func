@@ -6,5 +6,4 @@
 
 [resource]
 script = ExtResource("1_fgd")
-fgd_name = "GodotTrench"
 base_fgd_files = Array[Resource]([ExtResource("2_base"), ExtResource("3_gt")])
