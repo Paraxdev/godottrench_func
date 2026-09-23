@@ -11,7 +11,7 @@ func _get_resource_type() -> String:
 	return 'QuakeMapFile'
 
 func _get_recognized_extensions() -> PackedStringArray:
-	return PackedStringArray(['map','vmf'])
+	return PackedStringArray(['map','vmf','gtm'])
 	
 func _get_priority():
 	return 1.0
@@ -41,6 +41,11 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files) 
 			map_resource = QuakeMapFile.new()		
 	else:
 		map_resource = QuakeMapFile.new()
-	map_resource.map_data = FileAccess.open(source_file, FileAccess.READ).get_as_text()
+	# GodotTrench: .gtm maps are kept as bytes, newer ones are a binary container.
+	if source_file.get_extension().to_lower() == "gtm":
+		map_resource.map_bytes = FileAccess.get_file_as_bytes(source_file)
+		map_resource.map_data = ""
+	else:
+		map_resource.map_data = FileAccess.open(source_file, FileAccess.READ).get_as_text()
 
 	return ResourceSaver.save(map_resource, save_path_str)
