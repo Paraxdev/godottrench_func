@@ -221,6 +221,8 @@ func _build(text: String) -> GodotTrenchBuildReport:
 	report.check_entities(entities)
 	report.check_targets(entities, self)
 
+	GodotTrenchProbes.fit_volumes(entities)
+
 	report.step("Building terrains")
 	GodotTrenchTerrain.build_all(self, parse_data.terrains, map_settings)
 	report.step("Building scatter sets")
@@ -236,6 +238,8 @@ func _build(text: String) -> GodotTrenchBuildReport:
 	if not parse_data.lightmap.is_empty():
 		report.step("Applying the baked lighting")
 		GodotTrenchLightmap.build(self, parse_data.lightmap, entities)
+	# Last, a VoxelGI bakes the finished scene around it.
+	GodotTrenchProbes.bake_voxel_gi(self)
 
 	GodotTrenchOverlay.notify_built(self)
 	report.finish()
