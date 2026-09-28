@@ -236,3 +236,5 @@ class ParseData:
 	var scatters: Array[Dictionary] = []
 	## Lighting baked in the GodotTrench editor, see [method GodotTrenchLightmap.decode].
 	var lightmap: Dictionary = {}
+	## Map units one repeat of a texture covers, by texture name, from the map's texture settings.
+	var texture_sizes: Dictionary[String, Vector2] = {}
