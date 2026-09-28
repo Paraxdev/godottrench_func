@@ -330,6 +330,8 @@ static func split_visuals(root: Node, cell: float) -> int:
 			piece.cast_shadow = mi.cast_shadow
 			piece.layers = mi.layers
 			piece.material_override = mi.material_override
+			if mi.has_meta(GodotTrenchLightmap.BAKED_META):
+				piece.set_meta(GodotTrenchLightmap.BAKED_META, true)
 			parent.add_child(piece)
 			piece.owner = mi.owner
 			index += 1
